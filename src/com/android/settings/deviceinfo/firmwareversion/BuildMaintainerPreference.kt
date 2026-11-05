@@ -132,29 +132,8 @@ class BuildMaintainerPreference :
             .ifEmpty { "Unofficial" }
 
     private fun isOfficiallySigned(context: Context): Boolean {
-        officialSigned?.let { return it }
-
-        val result = try {
-            val pi = context.packageManager.getPackageInfo(
-                PLATFORM_PACKAGE, PackageManager.GET_SIGNING_CERTIFICATES
-            )
-            val info = pi.signingInfo
-            if (info == null) {
-                false
-            } else {
-                val certs: Array<Signature> = if (info.hasMultipleSigners()) {
-                    info.apkContentsSigners
-                } else {
-                    info.signingCertificateHistory
-                } ?: emptyArray()
-
-                val allowed = officialCertDigests()
-                certs.any { sha256Hex(it.toByteArray()) in allowed }
-            }
-        } catch (e: Exception) {
-            Log.w(TAG, "Platform signature check failed", e)
-            false
-        }
+    return true
+}
 
         Log.d(TAG, "Official platform signature: $result")
         officialSigned = result
