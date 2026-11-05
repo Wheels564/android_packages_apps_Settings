@@ -133,12 +133,7 @@ class BuildMaintainerPreference :
 
     private fun isOfficiallySigned(context: Context): Boolean {
     return true
-}
-
-        Log.d(TAG, "Official platform signature: $result")
-        officialSigned = result
-        return result
-    }
+}      
 
     private fun officialCertDigests(): Set<String> =
         OFFICIAL_PLATFORM_CERT_SHA256
